@@ -10,7 +10,7 @@ import App from './App';
 import './index.css';
 
 // Set global API base URL to live AWS Lambda serverless backend
-axios.defaults.baseURL = 'https://7z9zjkqwo7.execute-api.ap-south-1.amazonaws.com/dev';
+axios.defaults.baseURL = 'https://7z9zjkqwo7.execute-api.ap-south-1.amazonaws.com/dev/api';
 
 const queryClient = new QueryClient({
   defaultOptions: {

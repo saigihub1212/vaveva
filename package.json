@@ -25,5 +25,9 @@
   },
   "dependencies": {
     "es-toolkit": "^1.50.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "*",
+    "@rollup/rollup-linux-x64-musl": "*"
   }
 }
