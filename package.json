@@ -4,16 +4,23 @@
   "private": true,
   "description": "VAVEVA - Premium Luxury Fashion E-Commerce Platform",
   "scripts": {
-    "install:all": "npm install && npm install --prefix server && npm install --prefix client && npm install --prefix admin",
-    "seed": "npm run seed --prefix server",
-    "server": "npm run dev --prefix server",
-    "client": "npm run dev --prefix client",
-    "admin": "npm run dev --prefix admin",
-    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run admin\"",
-    "build:client": "npm run build --prefix client",
-    "build:admin": "npm run build --prefix admin"
+    "install:all": "npm install",
+    "seed": "npm run seed --workspace=backend",
+    "server": "npm run dev --workspace=backend",
+    "backend": "npm run dev --workspace=backend",
+    "client": "npm run dev --workspace=frontend",
+    "frontend": "npm run dev --workspace=frontend",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "build": "npm run build --workspace=frontend"
   },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "es-toolkit": "^1.50.0"
   }
 }

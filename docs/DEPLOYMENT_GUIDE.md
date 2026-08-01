@@ -1,46 +1,42 @@
-# VAVEVA Production Deployment Guide
+# VAVEVA - Production Deployment Guide
 
-This guide outlines deployment steps for VAVEVA across Vercel, Render, and MongoDB Atlas.
+## 1. Backend Deployment on AWS Lambda (Serverless)
 
----
+Your backend is pre-configured with **`serverless-http`** and AWS Lambda handler entry point.
 
-## 1. Database Setup (MongoDB Atlas)
-1. Create a MongoDB Atlas Cluster at [mongodb.com](https://www.mongodb.com/).
-2. Obtain your Connection String URI:
-   `mongodb+srv://<username>:<password>@vaveva-cluster.mongodb.net/vaveva_db?retryWrites=true&w=majority`
-3. Whitelist IP `0.0.0.0/0` in Atlas Network Access.
+### Option A: Serverless Framework CLI
+1. Open terminal at `vervo/vaveva/backend`
+2. Install Serverless CLI globally (if not installed):
+   ```bash
+   npm install -g serverless
+   ```
+3. Configure AWS credentials:
+   ```bash
+   aws configure
+   ```
+4. Deploy to AWS Lambda & API Gateway:
+   ```bash
+   npx serverless deploy
+   ```
 
----
-
-## 2. Backend API Deployment (Render)
-1. Push the repository to GitHub.
-2. Go to [render.com](https://render.com/) and create a **Web Service**.
-3. Connect your GitHub repository and specify the **Root Directory**: `server`.
-4. Build Command: `npm install`
-5. Start Command: `node src/index.js`
-6. Environment Variables:
-   - `MONGODB_URI`: `<Your MongoDB Atlas URI>`
-   - `JWT_SECRET`: `vaveva_production_jwt_secret_key_2026`
-   - `PORT`: `5000`
-   - `NODE_ENV`: `production`
-7. Click **Deploy Web Service**. Your API will be live at `https://vaveva-api.onrender.com`.
-
----
-
-## 3. Customer Storefront Deployment (Vercel)
-1. Go to [vercel.com](https://vercel.com/) and import the project repository.
-2. Set **Root Directory**: `client`
-3. Framework Preset: **Vite**
-4. Environment Variables:
-   - `VITE_API_URL`: `https://vaveva-api.onrender.com`
-5. Click **Deploy**. Your luxury storefront will be live at `https://vaveva.vercel.app`.
+### Option B: AWS Lambda Console (Zip Upload)
+1. Zip the `vervo/vaveva/backend` directory (including `node_modules`, `lambda.js`, and `src/`).
+2. Upload zip to your **AWS Lambda Function**.
+3. Set **Handler** to `lambda.handler`
+4. Set Runtime to **Node.js 18.x** or higher.
+5. Add Environment Variables in AWS Lambda Console:
+   * `MONGODB_URI`: `mongodb+srv://saikumar:sai2007@newone.aiaojqv.mongodb.net/?appName=newOne`
+   * `JWT_SECRET`: `vavevasupersecretkey123456`
+   * `NODE_ENV`: `production`
+   * `ADMIN_EMAIL`: `admin@vaveva.com`
+   * `ADMIN_PASSWORD`: `admin123`
+   * `CLOUDINARY_URL`: `cloudinary://546169222394624:lyK-7jBbbU-a7-23vArJpjSx0xg@dqakp8ucr`
 
 ---
 
-## 4. Admin Dashboard Deployment (Vercel)
-1. Create a second Vercel Project importing the same repository.
-2. Set **Root Directory**: `admin`
-3. Framework Preset: **Vite**
-4. Environment Variables:
-   - `VITE_API_URL`: `https://vaveva-api.onrender.com`
-5. Click **Deploy**. Your executive admin center will be live at `https://vaveva-admin.vercel.app`.
+## 2. Frontend Deployment (Vercel / Netlify)
+
+1. **Root Directory:** `vervo/vaveva/frontend`
+2. **Build Command:** `npm run build`
+3. **Output Directory:** `dist`
+4. **Vercel Routing:** Handled automatically via [vercel.json](file:///c:/Users/pc/Desktop/recap_django/law/sleepnew/vervo/vaveva/frontend/vercel.json).

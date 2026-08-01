@@ -1,0 +1,42 @@
+service: vaveva-backend-api
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+  stage: dev
+  memorySize: 1024
+  timeout: 30
+  environment:
+    MONGODB_URI: 'mongodb+srv://saikumar:sai2007@newone.aiaojqv.mongodb.net/vaveva_db?retryWrites=true&w=majority&appName=newOne'
+    JWT_SECRET: 'vavevasupersecretkey123456'
+    NODE_ENV: 'production'
+    ADMIN_EMAIL: 'admin@vaveva.com'
+    ADMIN_PASSWORD: 'admin123'
+    CLOUDINARY_CLOUD_NAME: 'dqakp8ucr'
+    CLOUDINARY_API_KEY: '546169222394624'
+    CLOUDINARY_API_SECRET: 'lyK-7jBbbU-a7-23vArJpjSx0xg'
+    CLOUDINARY_URL: 'cloudinary://546169222394624:lyK-7jBbbU-a7-23vArJpjSx0xg@dqakp8ucr'
+
+package:
+  individually: true
+  patterns:
+    - '!node_modules/**'
+    - '!src/**'
+    - '!*.js'
+    - 'dist/**'
+
+functions:
+  api:
+    handler: dist/index.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
