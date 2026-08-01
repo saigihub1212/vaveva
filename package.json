@@ -1,0 +1,19 @@
+{
+  "name": "vaveva-luxury-ecommerce",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VAVEVA - Premium Luxury Fashion E-Commerce Platform",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client && npm install --prefix admin",
+    "seed": "npm run seed --prefix server",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "admin": "npm run dev --prefix admin",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run admin\"",
+    "build:client": "npm run build --prefix client",
+    "build:admin": "npm run build --prefix admin"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
